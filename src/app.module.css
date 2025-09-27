@@ -1,0 +1,10 @@
+/* src/App.module.css */
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: rgba(221, 221, 221, 1);
+  color: #ffffff;
+  /* padding: 1.25rem; */
+}

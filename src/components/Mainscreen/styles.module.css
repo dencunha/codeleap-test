@@ -1,0 +1,149 @@
+/* src/components/mainscreen/styles.module.css */
+.container {
+  background-color: #ffffff;
+  color: #000000;
+  /* padding: 0 1.25rem 1.25rem; */
+  border-radius: .5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  max-width: 50rem;
+  width: 100%;
+}
+
+.container header {
+  padding: 1rem;
+  border-radius: .5rem .5rem 0 0;
+  background-color: rgba(118, 149, 236, 1);
+
+  h1 {
+    color: rgba(255, 255, 255, 1);
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  margin: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(153, 153, 153, 1);
+  border-radius: 1rem;
+
+  h1 {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  label {
+    margin: 1.5rem 0 .5rem;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+}
+
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.button {
+  background-color: rgba(118, 149, 236, 1);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+
+  min-width: 7.5rem;
+  padding: .375rem;
+  margin-top: 1.5rem;
+  align-self: flex-end;
+  border: none;
+  border-radius: .5rem;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: rgb(86, 123, 224);
+}
+
+.button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.postsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 1.5rem;
+}
+
+.post {
+  background-color: #e0e7ff;
+  border-radius: 1rem;
+  border: 1px solid rgba(153, 153, 153, 1);
+}
+
+.post:hover {
+    border: 1px solid #000;
+
+}
+
+.postHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(108, 139, 245);
+  color: #ffffff;
+  padding: 1.5rem;
+  border-radius:  1rem 1rem 0 0;
+
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.editButton,
+.deleteButton {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  opacity: .5;
+
+}
+
+.editButton:hover,
+.deleteButton:hover {
+  opacity: 1;
+}
+
+.postContent {
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 0 0 1rem 1rem;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #000000;
+  text-align: justify;
+}
+
+.postUser {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: rgba(119, 119, 119, 1);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  p + p {
+    font-weight: 400;
+  }
+}
