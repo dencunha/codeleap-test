@@ -1,12 +1,11 @@
-/* src/components/mainscreen/styles.module.css */
 .container {
   background-color: #ffffff;
   color: #000000;
-  /* padding: 0 1.25rem 1.25rem; */
   border-radius: .5rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   max-width: 50rem;
   width: 100%;
+  margin-inline: 1rem;
 }
 
 .container header {
@@ -86,8 +85,7 @@
 }
 
 .post:hover {
-    border: 1px solid #000;
-
+  border: 1px solid #000;
 }
 
 .postHeader {
@@ -116,7 +114,6 @@
   background-color: transparent;
   border: none;
   opacity: .5;
-
 }
 
 .editButton:hover,
@@ -145,5 +142,29 @@
 
   p + p {
     font-weight: 400;
+  }
+}
+
+@media (max-width: 37.5rem) {
+  .postHeader, .form, .postContent {
+    padding: 1rem;
+  }
+
+  .editButton img,
+  .deleteButton img {
+    width: 1.5rem;
+  }
+
+  .postsList {
+    gap: 11rem;
+  }
+
+  .actions {
+    flex-direction: row;
+    gap: .5rem;
+  }
+
+  .postContent, .postUser {
+    font-size: 1rem;
   }
 }

@@ -1,4 +1,3 @@
-// src/components/editscreen/index.tsx
 import React, { useState } from 'react';
 import styles from './styles.module.css';
 

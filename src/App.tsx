@@ -1,4 +1,3 @@
-// src/App.tsx
 import React, { useState } from 'react';
 import './global.css';
 import styles from './app.module.css';
