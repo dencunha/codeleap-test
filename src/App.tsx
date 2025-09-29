@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './global.css';
 import styles from './app.module.css';
 import { Signup } from './components/Signup';
@@ -8,8 +8,16 @@ export function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [posts, setPosts] = useState([]);
 
+  useEffect(() => {
+    const savedUser = localStorage.getItem('currentUser');
+    if (savedUser) {
+      setCurrentUser(savedUser);
+    }
+  }, []); 
+
   function handleSignup(username) {
     setCurrentUser(username);
+    localStorage.setItem('currentUser', username);
   }
 
   function addPost(title, content) {
@@ -21,6 +29,11 @@ export function App() {
       user: currentUser,
     };
     setPosts([newPost, ...posts]);
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('currentUser');
+    setCurrentUser(null);
   }
 
   function deletePost(id) {
@@ -41,6 +54,7 @@ export function App() {
           onAddPost={addPost}
           onDeletePost={deletePost}
           onEditPost={editPost}
+          onLogout={handleLogout}
         />
       ) : (
         <Signup onSignup={handleSignup} />

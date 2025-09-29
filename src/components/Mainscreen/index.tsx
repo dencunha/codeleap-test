@@ -11,6 +11,7 @@ export function MainScreen({
   onAddPost,
   onDeletePost,
   onEditPost,
+  onLogout,
 }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -83,9 +84,11 @@ export function MainScreen({
     <div className={styles.container}>
       <header>
         <h1>CodeLeap Network</h1>
+        <button onClick={onLogout} className={styles.logoutButton}>Logout</button>
       </header>
       <form className={styles.form} onSubmit={handleCreatePost}>
         <h1>What's on your mind?</h1>
+        
           <label>Title</label>
           <input
             type="text"
