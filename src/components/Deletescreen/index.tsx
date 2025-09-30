@@ -1,7 +1,6 @@
-import React from 'react';
 import styles from './styles.module.css';
 
-export function DeleteScreen({ onConfirm, onCancel }) {
+export function DeleteScreen({ onConfirm, onCancel }: { onConfirm: () => void; onCancel: () => void }) {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>

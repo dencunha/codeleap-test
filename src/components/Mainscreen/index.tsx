@@ -1,10 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 import { DeleteScreen } from '../Deletescreen';
 import { EditScreen } from '../Editscreen';
 import edit from '../../assets/edit-icon.svg'
 import delet from '../../assets/delete-icon.svg'
-import heart from '../../assets/heart-icon.svg'
+import type { Post } from '../../App'
+
+interface MainScreenProps {
+  currentUser: string | null;
+  posts: Post[];
+  onAddPost: (title: string, content: string) => void;
+  onDeletePost: (id: number) => void;
+  onEditPost: (id: number, title: string, content: string) => void;
+  onLogout: () => void;
+  onLikePost: (id: number) => void;
+}
+
 
 export function MainScreen({
   currentUser,
@@ -14,17 +25,17 @@ export function MainScreen({
   onEditPost,
   onLogout,
   onLikePost,
-}) {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [deletePostId, setDeletePostId] = useState(null);
-  const [isEditOpen, setIsEditOpen] = useState(false);
-  const [editPost, setEditPost] = useState(null);
-  const [tick, setTick] = useState(0);
+}: MainScreenProps) 
+  {
+  const [title, setTitle] = useState<string>('');
+  const [content, setContent] = useState<string>('');
+  const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
+  const [deletePostId, setDeletePostId] = useState<number | null>(null);
+  const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
+  const [editPost, setEditPost] = useState<Post | null>(null);
+  const [tick, setTick] = useState<number>(0);
 
-
-  function timeAgo(createdAt) {
+  function timeAgo(createdAt: number): string {
     const now = Date.now();
     const diffInMs = now - createdAt;
     const diffInMinutes = Math.floor(diffInMs / 60000);
@@ -47,7 +58,7 @@ export function MainScreen({
     return () => clearInterval(interval); 
   }, []); 
 
-  function handleCreatePost(e) {
+  function handleCreatePost(e: React.FormEvent) {
     e.preventDefault();
     if (title.trim() && content.trim()) {
       onAddPost(title, content);
@@ -56,7 +67,7 @@ export function MainScreen({
     }
   }
 
-  function openDeleteModal(id) {
+  function openDeleteModal(id: number) {
     setDeletePostId(id);
     setIsDeleteOpen(true);
   }
@@ -69,12 +80,12 @@ export function MainScreen({
     setDeletePostId(null);
   }
 
-  function openEditModal(post) {
+  function openEditModal(post: Post) {
     setEditPost(post);
     setIsEditOpen(true);
   }
 
-  function handleEditSave(title, content) {
+  function handleEditSave(title: string, content: string) {
     if (editPost) {
       onEditPost(editPost.id, title, content);
     }
@@ -83,7 +94,7 @@ export function MainScreen({
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} key={tick}>
       <header>
         <h1>CodeLeap Network</h1>
         <button onClick={onLogout} className={styles.logoutButton}>Logout</button>

@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './styles.module.css';
 
-export function EditScreen({
-  initialTitle,
-  initialContent,
-  onSave,
-  onCancel,
-}) {
+export function EditScreen({ 
+  initialTitle, 
+  initialContent, 
+  onSave, 
+  onCancel }: 
+  { initialTitle: string; 
+    initialContent: string; 
+    onSave: (title: string, content: string) => void; 
+    onCancel: () => void }) 
+  {
   const [title, setTitle] = useState(initialTitle);
   const [content, setContent] = useState(initialContent);
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (title.trim() && content.trim()) {
       onSave(title, content);

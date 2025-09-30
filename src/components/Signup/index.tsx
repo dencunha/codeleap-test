@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './styles.module.css';
 
-export function Signup({ onSignup }) {
+export function Signup({ onSignup }: { onSignup: (username: string) => void }) {
   const [username, setUsername] = useState('');
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (username.trim()) {
       onSignup(username);
