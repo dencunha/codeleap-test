@@ -139,10 +139,10 @@ export function MainScreen({
             </div>
             <div className={styles.postContent}>
               <div className={styles.postUser}>
-              <p> @{post.user}</p>
-              <p>{timeAgo(post.createdAt)}</p>
+                <p> @{post.user}</p>
+                <p>{timeAgo(post.createdAt)}</p>
               </div>
-              <p>{post.content}</p>
+              <p className={styles.whiteSpace}>{post.content}</p>
               <button onClick={() => onLikePost(post.id)} className={styles.likeButton}>
                 <svg xmlns="http://www.w3.org/2000/svg" className={styles.likeIcon} viewBox="0 0 512 512">
                   <path 

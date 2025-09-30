@@ -168,6 +168,10 @@
   }
 }
 
+.whiteSpace {
+  white-space: pre-wrap;
+}
+
 .likeButton {
   background-color: transparent;
   border: none;
