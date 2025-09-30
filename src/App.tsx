@@ -27,6 +27,7 @@ export function App() {
       title,
       content,
       user: currentUser,
+      likes: 0,
     };
     setPosts([newPost, ...posts]);
   }
@@ -45,6 +46,12 @@ export function App() {
     );
   }
 
+  function likePost(id) {
+    setPosts(posts.map(post => 
+      post.id === id ? { ...post, likes: post.likes === 0 ? 1 : 0 } : post
+    ));
+  }
+
   return (
     <div className={styles.app}>
       {currentUser ? (
@@ -55,6 +62,7 @@ export function App() {
           onDeletePost={deletePost}
           onEditPost={editPost}
           onLogout={handleLogout}
+          onLikePost={likePost}
         />
       ) : (
         <Signup onSignup={handleSignup} />

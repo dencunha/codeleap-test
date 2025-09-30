@@ -18,6 +18,10 @@ input, textarea {
   border-radius: .5rem;
 }
 
+button {
+  cursor: pointer;
+}
+
 @media (max-width < 37.5rem) {
   body {
     padding: .625rem;

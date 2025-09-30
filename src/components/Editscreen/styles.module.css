@@ -58,7 +58,6 @@
     font-weight: 700;
     transition: transform 0.2s ease;
   }
-
 }
 
 button:hover {
@@ -69,7 +68,6 @@ button:hover {
   background-color: #ffffff;
   color: #000000;
   border: 1px solid #ccc;
-  cursor: pointer;
 }
 
 .cancelButton:hover {
@@ -80,7 +78,6 @@ button:hover {
   background-color: rgba(71, 185, 96, 1);
   color: #ffffff;
   border: none;
-  cursor: pointer;
 }
 
 .saveButton:hover {
