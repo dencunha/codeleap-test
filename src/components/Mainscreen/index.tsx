@@ -4,18 +4,8 @@ import { DeleteScreen } from '../Deletescreen';
 import { EditScreen } from '../Editscreen';
 import edit from '../../assets/edit-icon.svg'
 import delet from '../../assets/delete-icon.svg'
-import type { Post } from '../../App'
+import { usePosts, type Post } from '../../contexts/PostContext'
 
-
-interface MainScreenProps {
- currentUser: string | null;
- posts: Post[];
- onAddPost: (title: string, content: string) => void;
- onDeletePost: (id: number) => void;
- onEditPost: (id: number, title: string, content: string) => void;
- onLogout: () => void;
- onLikePost: (id: number) => void;
-}
 
 
 interface LikeIconProps {
@@ -75,61 +65,57 @@ function PostTime({ createdAt }: { createdAt: number }) {
 }
 
 
-function useMainScreenLogic(props: MainScreenProps) {
+function useMainScreenLogic() {
+const { addPost, deletePost, editPost } = usePosts();
  const [title, setTitle] = useState<string>('');
  const [content, setContent] = useState<string>('');
  const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
  const [deletePostId, setDeletePostId] = useState<number | null>(null);
  const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
- const [editPost, setEditPost] = useState<Post | null>(null);
+ const [editingPost, setEditingPost] = useState<Post | null>(null);
 
 
  function handleCreatePost(e: React.FormEvent) {
    e.preventDefault();
    if (title.trim() && content.trim()) {
-     props.onAddPost(title, content);
+     addPost(title, content);
      setTitle('');
      setContent('');
    }
  }
-
 
  function openDeleteModal(id: number) {
    setDeletePostId(id);
    setIsDeleteOpen(true);
  }
 
-
  function confirmDelete() {
    if (deletePostId !== null) {
-     props.onDeletePost(deletePostId);
+     deletePost(deletePostId);
    }
    setIsDeleteOpen(false);
    setDeletePostId(null);
  }
 
-
  function openEditModal(post: Post) {
-   setEditPost(post);
+   setEditingPost(post);
    setIsEditOpen(true);
  }
 
-
  function handleEditSave(title: string, content: string) {
-   if (editPost) {
-     props.onEditPost(editPost.id, title, content);
+   if (editingPost) {
+     editPost(editingPost.id, title, content);
    }
    setIsEditOpen(false);
-   setEditPost(null);
+   setEditingPost(null);
  }
-
 
  return {
    title, setTitle,
    content, setContent,
    isDeleteOpen, setIsDeleteOpen,
    isEditOpen, setIsEditOpen,
-   editPost,
+   editingPost,
    handleCreatePost,
    openDeleteModal,
    confirmDelete,
@@ -138,30 +124,27 @@ function useMainScreenLogic(props: MainScreenProps) {
  };
 }
 
+export function MainScreen() {
+  const { currentUser, posts, handleLogout, likePost } = usePosts();
 
-export function MainScreen(props: MainScreenProps) {
- const { currentUser, posts, onLogout, onLikePost } = props;
-
-
- const {
-   title, setTitle,
-   content, setContent,
-   isDeleteOpen, setIsDeleteOpen,
-   isEditOpen, setIsEditOpen,
-   editPost,
-   handleCreatePost,
-   openDeleteModal,
-   confirmDelete,
-   openEditModal,
-   handleEditSave
- } = useMainScreenLogic(props);
-
+  const {
+    title, setTitle,
+    content, setContent,
+    isDeleteOpen, setIsDeleteOpen,
+    isEditOpen, setIsEditOpen,
+    editingPost, 
+    handleCreatePost,
+    openDeleteModal,
+    confirmDelete,
+    openEditModal,
+    handleEditSave
+  } = useMainScreenLogic();
 
  return (
    <div className={styles.container}>
      <header>
        <h1>CodeLeap Network</h1>
-       <button onClick={onLogout} className={styles.logoutButton}>Logout</button>
+       <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
      </header>
      <form className={styles.form} onSubmit={handleCreatePost}>
        <h1>What's on your mind?</h1>
@@ -207,7 +190,7 @@ export function MainScreen(props: MainScreenProps) {
                <PostTime createdAt={post.createdAt} />
              </div>
              <p className={styles.whiteSpace}>{post.content}</p>
-             <button onClick={() => onLikePost(post.id)} className={styles.likeButton}>
+             <button onClick={() => likePost(post.id)} className={styles.likeButton}>
                <LikeIcon
                  isLiked={post.likes > 0}
                  className={styles.likeIcon}
@@ -224,10 +207,10 @@ export function MainScreen(props: MainScreenProps) {
          onCancel={() => setIsDeleteOpen(false)}
        />
      )}
-     {isEditOpen && editPost && (
+     {isEditOpen && editingPost && (
        <EditScreen
-         initialTitle={editPost.title}
-         initialContent={editPost.content}
+         initialTitle={editingPost.title}
+         initialContent={editingPost.content}
          onSave={handleEditSave}
          onCancel={() => setIsEditOpen(false)}
        />
