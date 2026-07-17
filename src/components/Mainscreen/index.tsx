@@ -58,7 +58,7 @@ function LikeIcon({ isLiked, className }: LikeIconProps) {
 
 
 function PostTime({ createdAt }: { createdAt: number }) {
- const [tick, setTick] = useState(0);
+ const [, setTick] = useState(0);
 
 
  useEffect(() => {
