@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import styles from './styles.module.css';
+import { usePosts } from '../../contexts/PostContext';
 
-export function Signup({ onSignup }: { onSignup: (username: string) => void }) {
+export function Signup() {
   const [username, setUsername] = useState('');
+  const { handleSignup } = usePosts();
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (username.trim()) {
-      onSignup(username);
+      handleSignup(username);
     }
   }
 

@@ -18,7 +18,6 @@ export function App() {
 
  return (
     <div className={styles.app}>
-      {/* 3. A MainScreen e o Signup não precisam mais receber dezenas de props! */}
       {currentUser ? (
         <MainScreen />
       ) : (

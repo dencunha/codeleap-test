@@ -1,6 +1,6 @@
-import { createContext, useState, useEffect, ReactNode, useContext } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
+import type { ReactNode } from 'react';
 
-// 1. Trazemos a tipagem do Post para cá (você vai precisar apagar ela do App.tsx depois)
 export interface Post {
   id: number;
   createdAt: number;
@@ -10,7 +10,6 @@ export interface Post {
   likes: number;
 }
 
-// 2. Definimos tudo o que o nosso "Wi-Fi" vai transmitir para o projeto
 interface PostContextData {
   currentUser: string | null;
   posts: Post[];
@@ -22,12 +21,9 @@ interface PostContextData {
   likePost: (id: number) => void;
 }
 
-// 3. Criamos o Contexto vazio (A nuvem em si)
 export const PostContext = createContext<PostContextData>({} as PostContextData);
 
-// 4. O Provider é o componente que vai abraçar o projeto e fornecer os dados
 export function PostProvider({ children }: { children: ReactNode }) {
-  // --- TUDO ISSO VEIO DO SEU APP.TSX ---
   const [currentUser, setCurrentUser] = useState<string | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
 
@@ -54,7 +50,7 @@ export function PostProvider({ children }: { children: ReactNode }) {
       createdAt: Date.now(),
       title,
       content,
-      user: currentUser!, // O '!' garante ao TS que o user não é nulo aqui
+      user: currentUser!,
       likes: 0,
     };
     setPosts([newPost, ...posts]);
@@ -73,9 +69,7 @@ export function PostProvider({ children }: { children: ReactNode }) {
       post.id === id ? { ...post, likes: post.likes === 0 ? 1 : 0 } : post
     ));
   }
-  // --- FIM DA LÓGICA DO APP.TSX ---
 
-  // 5. Ele retorna a Nuvem preenchida com os estados e funções reais
   return (
     <PostContext.Provider value={{
       currentUser,
@@ -92,7 +86,6 @@ export function PostProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// 6. Hook facilitador
 export function usePosts() {
   return useContext(PostContext);
 }
