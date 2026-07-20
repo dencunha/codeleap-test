@@ -7,7 +7,7 @@ export interface Post {
   title: string;
   content: string;
   user: string;
-  likes: number;
+  likedBy: string[];
 }
 
 interface PostContextData {
@@ -51,7 +51,7 @@ export function PostProvider({ children }: { children: ReactNode }) {
       title,
       content,
       user: currentUser!,
-      likes: 0,
+      likedBy: [],
     };
     setPosts([newPost, ...posts]);
   }
@@ -65,9 +65,20 @@ export function PostProvider({ children }: { children: ReactNode }) {
   }
 
   function likePost(id: number) {
-    setPosts(posts.map(post => 
-      post.id === id ? { ...post, likes: post.likes === 0 ? 1 : 0 } : post
-    ));
+    if (!currentUser) return;
+
+    setPosts(posts.map(post => {
+      if (post.id === id) {
+        const hasLiked = post.likedBy.includes(currentUser);
+
+        const updatedLikedBy = hasLiked
+          ? post.likedBy.filter(user => user !== currentUser)
+          : [...post.likedBy, currentUser]
+
+          return {... post, likedBy: updatedLikedBy}
+      }
+      return post;
+    }))
   }
 
   return (

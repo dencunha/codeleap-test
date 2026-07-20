@@ -192,10 +192,10 @@ export function MainScreen() {
              <p className={styles.whiteSpace}>{post.content}</p>
              <button onClick={() => likePost(post.id)} className={styles.likeButton}>
                <LikeIcon
-                 isLiked={post.likes > 0}
+                 isLiked={post.likedBy.includes(currentUser || "")}
                  className={styles.likeIcon}
                />
-               <p>{post.likes}</p>
+               <p>{post.likedBy.length}</p>
              </button>
            </div>
          </div>
